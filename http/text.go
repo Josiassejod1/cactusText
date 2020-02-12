@@ -25,19 +25,19 @@ func main() {
   getLyrics("sicko")
 }
 
+/*
+   Access one record
+   md[0].(map[string]interface{})["title"]
+   md[0].(map[string]interface{})["song_id"]
+   md[0].(map[string]interface{})["line_number"]
+   md[0].(map[string]interface{})["lyric"]
+*/
+
+
 func getLyrics(url string) {
   urlStr := fmt.Sprintf("https://cactus-chorus.herokuapp.com/api/v1/lyrics/%s", url)
 
-  /*
-     Access one record
-     md[0].(map[string]interface{})["title"]
-     md[0].(map[string]interface{})["song_id"]
-     md[0].(map[string]interface{})["line_number"]
-     md[0].(map[string]interface{})["lyric"]
-  */
-
   var lyric []Lyric
-
   resp := helpers.MakeHttpRequest(urlStr)
   lyric_array := helpers.DeconstructJson(lyric, resp)
 
