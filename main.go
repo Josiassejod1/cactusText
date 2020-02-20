@@ -1,14 +1,10 @@
 package main
 
 import (
-  // "net/http"
-  // "fmt"
+  trav "github.com/josiassejod1/cactusText/cmd"
   "github.com/joho/godotenv"
    "log"
-  // "io/ioutil"
-  // "encoding/json"
-  // "bytes"
-  helpers "github.com/josiassejod1/cactusText/http/helpers"
+   "github.com/spf13/cobra"
 )
 
 func init() {
@@ -16,9 +12,15 @@ func init() {
   err != nil {
     log.Print("No .env file found")
   }
+    RootCmd.AddCommand(trav.GetLyricsCmd)
+}
+
+var RootCmd = &cobra.Command{
+  Use: "cactus",
+  Short: "🌵🌵 Cactus Jack Lyrics 🌵🌵",
 }
 
 
 func main() {
-  helpers.GetLyrics("sicko")
+  RootCmd.Execute()
 }

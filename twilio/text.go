@@ -2,15 +2,32 @@ package twilio
 
 import (
   "fmt"
-  helpers "github.com/Josiassejod1/http/helpers"
-  "github.com/joho/godotenv"
   "os"
-  "log"
   "net/url"
   "strings"
   "net/http"
   "encoding/json"
 )
+
+func init() {
+  _, key_err := os.LookupEnv("ACCOUNT_SSID")
+
+  if key_err {
+    fmt.Println("Account SSID exists")
+  } else {
+    fmt.Println("Account SSID not found")
+    os.Exit(1)
+  }
+
+  _, pass_err := os.LookupEnv("ACCOUNT_TOKEN")
+
+  if pass_err {
+    fmt.Println("Account Token exists")
+  } else {
+    fmt.Println("Account Token not found")
+    os.Exit(1)
+  }
+}
 
 func SendMsg(key string, pass string, to string, from string, body string) {
     urlStr := "https://api.twilio.com/2010-04-01/Accounts/" + key + "/Messages.json"
