@@ -3,8 +3,8 @@ package trav
 import (
   "fmt"
   "github.com/spf13/cobra"
-  http "github.com/Josiassejod1/cactusText/http/helpers"
-  "strings"
+//  http "github.com/Josiassejod1/cactusText/http/helpers"
+  //"strings"
 )
 
 var SendSMS = &cobra.Command{
@@ -22,11 +22,12 @@ var SendSMS = &cobra.Command{
       )
   `,
   Run: func(cmd *cobra.Command, args []string) {
-    key := args[0]
-    pass := args[1]
-    to := args[2]
-    from := args[3]
-    body := args[4]
+    // key := args[0]
+    // pass := args[1]
+    // to := args[2]
+    // from := args[3]
+    // body := args[4]
 
-    fmt.Printf(args)
+    fmt.Printf("s", args)
+},
 }
