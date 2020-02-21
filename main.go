@@ -13,6 +13,7 @@ func init() {
     log.Print("No .env file found")
   }
     RootCmd.AddCommand(trav.GetLyricsCmd)
+    RootCmd.AddCommand(trav.SendSMS)
 }
 
 var RootCmd = &cobra.Command{
