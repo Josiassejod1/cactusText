@@ -14,6 +14,7 @@ func init() {
   }
     RootCmd.AddCommand(trav.GetLyricsCmd)
     RootCmd.AddCommand(trav.SendSMS)
+    RootCmd.AddCommand(trav.SendSMSSearch)
 }
 
 var RootCmd = &cobra.Command{

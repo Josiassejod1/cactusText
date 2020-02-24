@@ -49,7 +49,7 @@ func SendMsgEZ(to string, body string) {
   msgData.Set("To", to) //Number to send
   msgData.Set("From", from) //Number from
   msgData.Set("Body", body)
-  msgDataReader := * strings.NewReader(msgData.Encode())
+  msgDataReader := *strings.NewReader(msgData.Encode())
 
   client := & http.Client {}
   req, _ := http.NewRequest("POST", urlStr, & msgDataReader)
@@ -64,11 +64,11 @@ func SendMsgEZ(to string, body string) {
     decoder := json.NewDecoder(resp.Body)
     err := decoder.Decode( & data)
     if (err == nil) {
+      fmt.Println("🌵: Message Sent")
       fmt.Println(data["sid"])
     }
   } else {
     fmt.Println(resp.Status);
-    fmt.Println(resp.Body);
   }
 }
 
@@ -78,10 +78,10 @@ func SendMsg(key string, pass string, to string, from string, body string) {
     msgData.Set("To", to) //Number to send
     msgData.Set("From", from) //Number from
     msgData.Set("Body", body)
-    msgDataReader := * strings.NewReader(msgData.Encode())
+    msgDataReader := *strings.NewReader(msgData.Encode())
 
-    client := & http.Client {}
-    req, _ := http.NewRequest("POST", urlStr, & msgDataReader)
+    client := &http.Client {}
+    req, _ := http.NewRequest("POST", urlStr, &msgDataReader)
     req.SetBasicAuth(key, pass)
     req.Header.Add("Accept", "application/json")
     req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
