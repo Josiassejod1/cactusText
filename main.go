@@ -18,7 +18,10 @@ func init() {
 
 var RootCmd = &cobra.Command{
   Use: "cactus",
-  Short: "🌵🌵 Cactus Jack Lyrics 🌵🌵",
+  Short: `
+    🌵🌵 Cactus Jack Lyrics 🌵🌵
+    A tool to search Travis Scott Lyrics 🎶
+  `,
 }
 
 

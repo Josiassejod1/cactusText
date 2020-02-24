@@ -7,6 +7,7 @@ import (
   "fmt"
   "encoding/json"
   "bytes"
+  "math/rand"
 )
 
 type Lyric struct {
@@ -28,12 +29,10 @@ func MakeHttpRequest(url string) *http.Response{
   return resp
 }
 
-func GetLyrics(url string) []Lyric {
-  urlStr := fmt.Sprintf("https://cactus-chorus.herokuapp.com/api/v1/lyrics/%s", url)
+func GetLyrics(keyword string) []Lyric {
+  urlStr := fmt.Sprintf("https://cactus-chorus.herokuapp.com/api/v1/lyrics/%s", keyword)
   resp := MakeHttpRequest(urlStr)
   lyric_array := DecodeLyrics(resp)
-
-  //fmt.Printf("\n Lyrics : %+v", lyric_array)
   return lyric_array
 }
 
@@ -47,6 +46,15 @@ func DecodeLyrics(resp *http.Response) []Lyric {
   return lyrics
 }
 
+func GetRandomLyric(keyword string) string {
+  var lyric = GetLyrics(keyword)
+  len  := len(lyric)
+  if len == 0 {
+      return "Lyrics Not Found"
+  }
+
+  return string(lyric[rand.Intn(len)].Lyric)
+}
 
 func DeconstructJson(i interface {}, resp *http.Response) interface{} {
    body, err := ioutil.ReadAll(resp.Body)
@@ -70,10 +78,5 @@ func LogHttpRequest(req *http.Request ) *http.Response {
   }
 
   resp.Body = ioutil.NopCloser(bytes.NewBuffer(body))
-
-//  bodyString := string(body)
-
-  //log.Printf(bodyString)
-
   return resp
 }
