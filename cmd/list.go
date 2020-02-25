@@ -3,26 +3,27 @@ package trav
 import (
   "fmt"
   "github.com/spf13/cobra"
-  http "github.com/Josiassejod1/cactusText/http/helpers"
+  api "github.com/Josiassejod1/cactusText/api"
   "strings"
+  "os"
 )
 
 var GetLyricsCmd = &cobra.Command{
   Use: "lyrics",
   Short: "Get Lyrics",
   Run: func(cmd *cobra.Command, args []string) {
+
+    if len(os.Args) < 3 {
+      fmt.Println(`
+          Your Missing Some Search Terms
+        `)
+      os.Exit(1)
+    }
     search := strings.Join(args, " ")
     fmt.Println("Searching For Lyrics 🔎")
-    lyrics := http.GetLyrics(search)
+    lyrics := api.GetLyrics(search)
 
 
-    if len(lyrics) == 0 {
-      fmt.Println("No Lyrics Found 🙁")
-    } else {
-      fmt.Println("found: ", len(lyrics), " lyrics ")
-      for i, lyric := range lyrics {
-        fmt.Printf("%d: %v\n", i + 1, lyric.Lyric)
-      }
-    }
+    _ = api.LyricLoop(lyrics)
   },
 }

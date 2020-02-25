@@ -4,17 +4,10 @@ import (
   "net/http"
   "log"
   "io/ioutil"
-  "fmt"
   "encoding/json"
   "bytes"
 )
 
-type Lyric struct {
-  Title string
-  Lyric string
-  Song_ID int
-  Line_Number int
-}
 
 func MakeHttpRequest(url string) *http.Response{
   req, err := http.NewRequest("GET", url, nil)
@@ -27,26 +20,6 @@ func MakeHttpRequest(url string) *http.Response{
 
   return resp
 }
-
-func GetLyrics(url string) []Lyric {
-  urlStr := fmt.Sprintf("https://cactus-chorus.herokuapp.com/api/v1/lyrics/%s", url)
-  resp := MakeHttpRequest(urlStr)
-  lyric_array := DecodeLyrics(resp)
-
-  //fmt.Printf("\n Lyrics : %+v", lyric_array)
-  return lyric_array
-}
-
-func DecodeLyrics(resp *http.Response) []Lyric {
-  var lyrics []Lyric
-  err := json.NewDecoder(resp.Body).Decode(&lyrics)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-  return lyrics
-}
-
 
 func DeconstructJson(i interface {}, resp *http.Response) interface{} {
    body, err := ioutil.ReadAll(resp.Body)
@@ -70,10 +43,7 @@ func LogHttpRequest(req *http.Request ) *http.Response {
   }
 
   resp.Body = ioutil.NopCloser(bytes.NewBuffer(body))
-
-//  bodyString := string(body)
-
-  //log.Printf(bodyString)
-
+  //use when trouble shooting
+ //fmt.Println(resp.Body)
   return resp
 }
